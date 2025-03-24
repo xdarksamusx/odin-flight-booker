@@ -1,0 +1,13 @@
+<%= form_for @booking do |f|%>
+  <%= f.fields_for :passengers do |pf|%>
+    <div>
+      <%= pf.label :name %>
+      <%= pf.text_field :name%>
+    </div>
+    <div>
+      <%= pf.label :email%>
+      <%= pf.text_field :email%>
+    </div>
+  <% end %>
+  <%= f.submit "Create Booking" %>
+<% end %>

@@ -1,0 +1,24 @@
+<h1> Search Flights</h1>
+<%= form_with url: flights_path, method: :get do |form| %>
+  <label> Departure Airport </label>
+  <%= form.select :departure_airport_id, Airport.all.pluck(:airport_name, :id), include_blank: "Select Departure"  %>
+  <label> Arival Airport </label>
+  <%= form.select :arrival_airport_id, Airport.all.pluck(:airport_name, :id), include_blank: "Select Arrival"  %>
+  <label> Date: </label>
+  <%= form.date_field  :date %>
+  <label> Passengers </label>
+  <%= form.select :passengers, (1...4).to_a, include_blank: "Select Passengers"%>
+  <%= form.submit%>
+<% end %>
+<% if @flights.present?%>
+  <h2> Avaialble flights: </h2>
+  <% @flights.each do |flight|%>
+    <p>
+      Flight <%= link_to  flight.departing_flight_number, flight_path(flight)  %>
+      Departure <%= link_to  flight.departure_airport.airport_name %>
+      Arrival <%= link_to  flight.arrival_airport.airport_name %>
+    </p>
+  <% end %>
+<% else %>
+  <p> No flights found</p>
+<% end %>
