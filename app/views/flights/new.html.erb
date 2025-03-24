@@ -1,0 +1,49 @@
+<% if @flight.errors.any?  %>
+  <div>
+    <h3> <%= pluralize(@flight.errors.count, "error")  %>  prohibited this flight from being saved </h3>
+    <ul>
+      <% @flight.errors.full_messages.each do |message| %>
+        <li>  <%= message%> </li>
+      <%end%>
+    </ul>
+  </div>
+<%end%>
+<%= form_with model: @flight, local:true  do |f| %>
+  <div>
+    <%= f.label :flight_duration%>
+    <%= f.text_field :flight_duration%>
+  </div>
+  <div>
+    <%= f.label :arrival_flight_number%>
+    <%= f.text_field :arrival_flight_number%>
+  </div>
+  <div>
+    <%= f.label :departing_flight_number%>
+    <%= f.text_field :departing_flight_number%>
+  </div>
+  <div>
+    <%= f.label :departure_datetime%>
+    <%= f.text_field :departure_datetime%>
+  </div>
+  <div>
+    <%= f.label :arrival_datetime%>
+    <%= f.text_field :arrival_datetime%>
+  </div>
+  <div>
+    <%= f.label :flight_type%>
+    <%= f.text_field :flight_type %>
+  </div>
+  <div>
+    <%= f.label :aircraft_id %>
+    <%= f.collection_select :aircraft_id, Aircraft.all, :id, :aircraft_name %>
+  </div>
+  <div>
+    <%= f.label :departure_airport_id %>
+    <%= f.collection_select :departure_airport_id, Airport.all, :id, :airport_name %>
+  </div>
+  <div>
+    <%= f.label :arrival_airport_id %>
+    <%= f.collection_select :arrival_airport_id, Airport.all, :id, :airport_name %>
+  </div>
+  <%= f.submit "Create Flight" %>
+<%end%>
